@@ -21,7 +21,7 @@ def main():
     timer = pygame.time.Clock()
 
     up = down = left = right = running = False
-    bg = Surface((32,32))
+    bg = Surface((32, 32))
     bg.convert()
     bg.fill(Color("#000000"))
     entities = pygame.sprite.Group()
@@ -70,8 +70,8 @@ def main():
         y += 32
         x = 0
 
-    total_level_width  = len(level[0])*32
-    total_level_height = len(level)*32
+    total_level_width  = len(level[0]) * 32
+    total_level_height = len(level) * 32
     camera = Camera(complex_camera, total_level_width, total_level_height)
     entities.add(player)
 
@@ -135,12 +135,12 @@ class Camera(object):
 def simple_camera(camera, target_rect):
     l, t, _, _ = target_rect
     _, _, w, h = camera
-    return Rect(-l+HALF_WIDTH, -t+HALF_HEIGHT, w, h)
+    return Rect(-l + HALF_WIDTH, -t + HALF_HEIGHT, w, h)
 
 def complex_camera(camera, target_rect):
     l, t, _, _ = target_rect
     _, _, w, h = camera
-    l, t, _, _ = -l+HALF_WIDTH, -t+HALF_HEIGHT, w, h
+    l, t, _, _ = -l + HALF_WIDTH, -t + HALF_HEIGHT, w, h
 
     l = min(0, l)                           # stop scrolling at the left edge
     l = max(-(camera.width-WIN_WIDTH), l)   # stop scrolling at the right edge
@@ -158,7 +158,7 @@ class Player(Entity):
         self.xvel = 0
         self.yvel = 0
         self.onGround = False
-        self.image = Surface((32,32))
+        self.image = Surface((32, 32))
         self.image.fill(Color("#0000FF"))
         self.image.convert()
         self.rect = Rect(x, y, 32, 32)
