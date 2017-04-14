@@ -13,6 +13,9 @@ DEPTH = 32
 FLAGS = 0
 CAMERA_SLACK = 30
 
+pygame.mixer.init()
+jump_sound = pygame.mixer.Sound('./assets/jump.wav')
+
 def main():
     global cameraX, cameraY
     pygame.init()
@@ -73,6 +76,7 @@ def main():
     total_level_width  = len(level[0]) * 32
     total_level_height = len(level) * 32
     camera = Camera(complex_camera, total_level_width, total_level_height)
+    # camera = Camera(simple_camera, total_level_width, total_level_height)
     entities.add(player)
 
     while 1:
@@ -158,15 +162,17 @@ class Player(Entity):
         self.xvel = 0
         self.yvel = 0
         self.onGround = False
-        self.image = Surface((32, 32))
-        self.image.fill(Color("#0000FF"))
-        self.image.convert()
+        self.image = pygame.image.load('./assets/player.png').convert_alpha()
+        # self.image.fill(Color("#0000FF"))
+        # self.image.convert()
         self.rect = Rect(x, y, 32, 32)
 
     def update(self, up, down, left, right, running, platforms):
         if up:
             # only jump if on the ground
-            if self.onGround: self.yvel -= 10
+            if self.onGround: 
+                self.yvel -= 10
+                jump_sound.play()
         if down:
             pass
         if running:
